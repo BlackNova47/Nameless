@@ -118,19 +118,12 @@ def room03():
 	clearscreen()
 	print("\n \n --> You have entered room3")
 
-def thisUserIsAnIdiot():
-	clearscreen()
-	user_enter = str(input(" Just press the Enter key, dont type anything dumbass."))
-	if user_enter == '':
-		attributeStart()
-	else:
-		clearscreen()
-		print('''I'm sorry, can you not read? Cause if thats the case I dont think you should be playing a TEXT BASED ADVENTURE buddy.       Press ENTER to continue, do not type ANYTHING OTHER THAN ((((ENTER))))) ''')
 
 
 
 
 def displayTitlescreen():
+	start = False
 	print("                                   ______ _   _ _   _ _____  _____ _____ _   _       ")
 	print("                                   |  _  \ | | | \ | |  __ \|  ___|  _  | \ | |      ")
 	print("                                   | | | | | | |  \| | |  \/| |__ | | | |  \| |      ")
@@ -158,7 +151,25 @@ def displayTitlescreen():
 	if user_enter == '':
 		attributeStart()
 	else:
-		thisUserIsAnIdiot()
+		clearscreen()
+		user_enter = str(input(" Just press the Enter key, dont type anything dumbass."))
+		if user_enter == '':
+			attributeStart()
+		else:
+			clearscreen()
+			user_enter = str(input("Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder "))
+			if user_enter == '':
+				attributeStart()
+			else:
+				while start == False:
+					clearscreen()	
+					user_enter = str(input('''I'm sorry, can you not read? Cause if thats the case I dont think you should be playing a TEXT BASED ADVENTURE buddy.       Press ENTER to continue, do not type ANYTHING OTHER THAN ((((ENTER))))) '''))
+					if user_enter == '':
+						start=True
+						attributeStart()
+						 		
+			
+				
 
 
 displayTitlescreen()
