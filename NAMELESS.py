@@ -142,8 +142,11 @@ def attributeStart():
 						clearscreen()
 						attributeStart()
 
-def spider_event():
-	enemyHealth = 13
+def spider_event(x):
+	if(x==1000):
+		enemyHealth = 13
+	else:
+		enemyHealth = x
 	event_options = ["1","2","3"]
 	user_choice =""
 	while user_choice not in event_options:
@@ -181,7 +184,7 @@ def spider_event():
 	elif user_choice == event_options[1]:
 		spiderroom02()
 	elif user_choice == event_options[2]:
-		spiderroom03()
+		spiderroom03(enemyHealth)
 def spiderroom01(enemyHealth):
 	clearscreen()
 	global Strength
@@ -202,10 +205,10 @@ def spiderroom01(enemyHealth):
 		user_enter = str(input("                                                   Press Enter To Continue "))
 		if user_enter == '':
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 		else:
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 
 	else:
 
@@ -221,14 +224,14 @@ def spiderroom01(enemyHealth):
 		user_enter = str(input("                                                   Press Enter To Continue "))
 		if user_enter == '':
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 		else:
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 def spiderroom02():
 	clearscreen()
 	print("\n \n --> You have entered room2")
-def spiderroom03():
+def spiderroom03(enemyHealth):
 	global Health
 	global Agility
 	clearscreen()
@@ -247,10 +250,10 @@ def spiderroom03():
 		user_enter = str(input("                                                   Press Enter To Continue "))
 		if user_enter == '':
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 		else:
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 
 	else:
 
@@ -263,10 +266,10 @@ def spiderroom03():
 		user_enter = str(input("                                              Press Enter To Continue "))
 		if user_enter == '':
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 		else:
 			clearscreen()
-			spider_event()
+			spider_event(enemyHealth)
 
 def start_event():
 	introevent_options = ["1","2","3"]
@@ -315,7 +318,7 @@ def room01():
 	print("\n \n --> You have entered room1")
 def room02():
 	clearscreen()
-	spider_event()
+	spider_event(1000)
 def room03():
 	clearscreen()
 	print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
@@ -441,3 +444,4 @@ def displayTitlescreen():
 
 
 displayTitlescreen()
+
