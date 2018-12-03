@@ -7,116 +7,384 @@ Gold = 0
 Health = 100
 Mana = 100
 # ***ATTRIBUTES***
-Stength = 0
-Agility = 0
-Intelligence = 0
+maxPoints = 5
+Strength = 5
+Accuracy = 5
+Agility = 5
+Intelligence = 5
 
 def clearscreen():
 	print("\n" * 100)
 	user_choice =""
+
+def introScreen():
+	print('''            ___  ______  ______  ______  ______  ______  ______  ______  ______  ______  ______  ______  ______  ''')
+	print('''             __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __) ''')
+	print('''             ______)(______)(______)(______)(______)(______)(______)(______)(______)(______)(______)(______)(___ ''')
+	print('''                                                                                                                 ''')
+	print('''             You awaken on the cold stone floor in a dungeon room dimly lit by a torch mounted upon the two paths''')									
+	print('''             entrances in front of you. Your thoughts are disrupted by a sharp pain as you try and recollect     ''')
+	print('''             where you are, or even who you are. The only coherent thought you have is that the dungeon ahead    ''')
+	print('''             holds answers, treasure, and more...                                                                ''')
+	print('''                                                                                                                 ''')
+	print('''                                                                                                                 ''')
+	print('''                                                                                                                 ''')
+	print('''                                                                                                                 ''')
+	print('''                                                                                                                 ''')
+	print('''                                                                                                                 ''')
+	print('''              __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)(__  __)''')
+	print('''            (______)(______)(______)(______)(______)(______)(______)(______)(______)(______)(______)(______)(___ ''')
+	print("                                                 Press Enter To Continue ")
+	print("\n" * 9)
+	user_enterStart = str(input(""))
+	if user_enterStart == '':
+		start_event()
+
+
 def enterName():
 	clearscreen()
 	print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
 	print('''                                                         ENTER YOUR NAME                      ''')
 	print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
-	print('''                                                                                              ''')
+	print("\n" * 11)
+	user_name = str(input(" "))
+	if user_name == '':
+		clearscreen()
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                        YOU FOOL, DIDN'T YOU READ THE TITLE OF THE GAME???    ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_intro = str(input(" "))
+		if user_intro == '':
+			introScreen()
+	else: 
+		clearscreen()
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                        YOU FOOL, DIDN'T YOU READ THE TITLE OF THE GAME???    ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_intro = str(input(" "))
+		if user_intro == '':
+			introScreen()
 
 def attributeStart():
+	global maxPoints
+	global Strength
+	global Accuracy
+	global Agility
+	global Intelligence
 	clearscreen()
+	if maxPoints == 0:
+		print('''                                       =====================================                 ''')
+		print('''                                       You've distributed your skill points!                 ''')
+		print('''                                              Press Enter To Continue!                       ''')
+		print('''                                       =====================================                 ''')
+		print("\n" * 11)
+		user_entercon = str(input(""))
+		if user_entercon == '':
+			enterName()
+
 	print('''                                              ==============================                 ''')
 	print('''                                               ASSIGN YOUR ATTRIBUTE POINTS                  ''')
 	print('''                                               ============================                  ''')
+	print('''                                           You have %s unspent attribute points              ''' % maxPoints)
 	print('''                              [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] ''')
 	print('''                                                                                             ''')
+	print('''                              [1](Strength) How much damage your attacks do.    : %s  '''% Strength)
 	print('''                                                                                             ''')
-
-
-
-
-
+	print('''                              [2](Accuracy) Your ability to hit targets.        : %s  '''% Accuracy)
+	print('''                                                                                             ''')
+	print('''                              [3](Agility) Your ability to run and dodge.       : %s  '''% Agility)
+	print('''                                                                                             ''')
+	print('''                              [4](Intelligence) Your ability to decypher.       : %s  '''% Intelligence)
+	print('''                                                                                             ''')
 	print('''                                                                                             ''')
 	print('''                                                                                             ''')
 	print('''                              [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	print('''                                                                                                ''')
-	user_enter = str(input("                                                  Press Enter To Continue "))
-	if user_enter == '':
+	print('''                               Distribute your points to your desired attributes by entering ''')
+	print('''                               in the [number] corresponding with your desired attribute and ''')
+	print('''                               hitting ENTER.                                                ''')
+	print("\n" * 4)
+	user_enterstat = str(input("                                         Enter Single Number [1-4]:   "))
+	if user_enterstat == '1':
+		Strength = Strength + 1
+		maxPoints = maxPoints - 1
 		clearscreen()
-		enterName()
+		attributeStart()
 
-def start_event():
+	else: 
+		if user_enterstat == '2':
+			Accuracy = Accuracy + 1
+			maxPoints = maxPoints - 1
+			clearscreen()
+			attributeStart()
+		else:
+			if user_enterstat == '3':
+				Agility = Agility + 1
+				maxPoints = maxPoints - 1
+				clearscreen()
+				attributeStart()
+			else:
+				if user_enterstat == '4':
+					Intelligence = Intelligence + 1
+					maxPoints = maxPoints - 1
+					clearscreen()
+					attributeStart()
+				else:
+					clearscreen()
+					print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+					print('''                                                                                              ''')
+					print('''                                            Only enter a single number [1, 2 , 3, 4]          ''')
+					print('''                                                                                              ''')
+					print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+					user_enter = str(input("                                                  Press Enter To Continue "))
+					if user_enter == '':
+						clearscreen()
+						attributeStart()
+
+def spider_event():
+	enemyHealth = 13
 	event_options = ["1","2","3"]
 	user_choice =""
 	while user_choice not in event_options:
 		clearscreen()
-		print('''      _______________________________________________________________________________________ ''')
-		print('''    /|     -_-                                             _-      _-                       | ''')
-		print('''   / |_-_- _                                         -_- _-   -   _-  _--                   | ''')
-		print('''     |                            _-  _--                                                   | ''')
-		print('''     |                            ,                            _-,  _--                     | ''')
-		print('''     |      .-'````````'.        '(`        .-'```````'-.       '(`      .-'```````'-.      | ''')
-		print('''     |    .` |           `.      `)'      .` |           `.     `)'    .` |           `.    | ''')
-		print('''     |   /   |             \      U      /   |             \     U    /   |             \   | ''')
-		print('''     |  |    |              | o   T   o |    |              |    T   |    |              |  | ''')
-		print('''     |  |    |              |  .  |  .  |    |              |    |   |    |              |  | ''')
-		print('''     |  |    |              |   . | .   |    |              |    |   |    |              |  | ''')
-		print('''     |  |    |              |    .|.    |    |              |    |   |    |              |  | ''')
-		print('''     |  |    |______________|     |     |    |______________|    |   |    |______________|  | ''')
-		print('''     |  |   /  __ ;   -     |     !     |   /     `    _ -  |    !   |   /     --        |  | ''')
-		print('''     |  |  / __            -|        -  |  /  __--      -   |        |  /                |  | ''')
-		print('''     |  | /        __-- _   |   _- _ -  | /        __--_    |   - _  | /        __--_    |  | ''')
-		print('''     |__|/__________________|___________|/__________________|________|/__________________|__| ''')
-		print('''    /                                             _ -                   -_                  | ''')
-		print('''   /   -_- _ -             _- _---                       -_-  -_                   -_       | ''')
-
-
+		print('''                                                                 (                 ''')
+		print('''                                                                  )                ''')
+		print('''                                                                 (                 ''')
+		print('''                                                          /\  .-"""-.  /\          ''')
+		print('''                                                         //\\/  ,,,  \//\\         ''')
+		print('''                                                         |/\| ,;;;;;, |/\|         ''')
+		print('''                                                         //\\\;-"""-;///\\         ''')
+		print('''                                                        //  \/   .   \/  \\        ''')
+		print('''                                                       (| ,-_| \ | / |_-, |)       ''')
+		print('''                                                         //`__\.-.-./__`\\         ''')
+		print('''                                                        // /.-(Oo oO)-.\ \\        ''')
+		print('''                                                       (\ |)   '---'   (| /)       ''')
+		print('''                                                         `(|           |) `        ''')
+		print('''                                                          \)           (/          ''')
 		print('''
 				=============================================================
-				The dungreon greets you with three doors which will you take?
+				As you make your way down the poorly torchlit path a giant 
+				spider quickly descends from the dungeon ceiling, nearly
+				jumping entirely on top of you. It looks hostile as it blocks
+				your path. What do you do?
 				=============================================================
 					
-					1) The first door.
-					2) The second door.
-					3) The third door. 
+					1) Attack the Giant Spider!
+					2) Yeet.
+					3) Try to run past.
 			
 			''')
 		user_choice = str(input("Enter Option Number: "))
-		#print("You have selected " + user_choice)
 	if user_choice == event_options[0]:
-		room01()
+		spiderroom01(enemyHealth)
 	elif user_choice == event_options[1]:
-		room02()
+		spiderroom02()
 	elif user_choice == event_options[2]:
+		spiderroom03()
+def spiderroom01(enemyHealth):
+	clearscreen()
+	global Strength
+	global Health
+	global Accuracy
+	attackAttempt = random.randint(3, 10)
+	if attackAttempt + Accuracy < 13:
+		clearscreen()
+		enemydmg = random.randint(1, 10)
+		Health = Health- enemydmg
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                                  Your attack fails and the Giant Spider does %s damage to you!"% enemydmg)
+		print("                                                     You have %s health left"% Health)
+		print('''                                                                                              ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			clearscreen()
+			spider_event()
+		else:
+			clearscreen()
+			spider_event()
+
+	else:
+
+		clearscreen()
+		enemyHealth -= Strength
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                                  Your attack is succesful and you deal %s damage to the spider!" % Strength)
+		print("                                                   The Giant spider have %s health left"% enemyHealth)
+		print('''                                                                                              ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			clearscreen()
+			spider_event()
+		else:
+			clearscreen()
+			spider_event()
+def spiderroom02():
+	clearscreen()
+	print("\n \n --> You have entered room2")
+def spiderroom03():
+	global Health
+	global Agility
+	clearscreen()
+	runAttempt = random.randint(1, 8)
+	if runAttempt + Agility < 13:
+		clearscreen()
+		enemydmg = random.randint(1, 10)
+		Health = Health- enemydmg
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                               Your attempt to run past the Giant Spider fails and you take %s damage!"% enemydmg)
+		print("                                                     You have %s health left"% Health)
+		print('''                                                                                              ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			clearscreen()
+			spider_event()
+		else:
+			clearscreen()
+			spider_event()
+
+	else:
+
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print('''                                            You succsessfully run past the Giant Spider!.     ''')
+		print('''                                                                                              ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                              Press Enter To Continue "))
+		if user_enter == '':
+			clearscreen()
+			spider_event()
+		else:
+			clearscreen()
+			spider_event()
+
+def start_event():
+	introevent_options = ["1","2","3"]
+	user_introchoice =""
+	while user_introchoice not in introevent_options:
+		clearscreen()
+		print('''                                  _________________________________________________________    ''')
+		print('''                                /|     -_-                                             _-  |\  ''')
+		print('''                                 |                  _-        ,                -_- _-      |   ''')
+		print('''                                 |      .-'````````'.        '(`        .-'``````'-.       |   ''')
+		print('''                                 |    .` |>          `.      `)'      .` |           `.    |   ''')
+		print('''                                 |   /   |>           <\      U      /   |             \   |   ''')
+		print('''                                 |  |    |>            <| o   T   o |    |  o        O  |  |   ''')
+		print('''                                 |  |    |>            <|  .  |  .  |>0< |  o o    o o  |  |   ''')
+		print('''                                 |  |    |>            <|   . | .   |    |     o   o    |  |   ''')
+		print('''                                 |  |    |>            <|    .|.    |    |              |  |   ''')
+		print('''                                 |  |    |____;_________|     |     |>o< |____;_________|  |   ''')
+		print('''                                 |  |   /  __     -     |     !     |   /      >0< _ -  |  |   ''')
+		print('''                                 |  |  / __            -|        -  |  /  __--      -   |  |   ''')
+		print('''                                 |  | /        __-- _   |   _- _ -  | /        __--_    |  |   ''')
+		print('''                                 |__|/__________________|___________|/__________________|__|   ''')
+		print('''                                /                                             _ -          \   ''')
+		print('''                               /   -_- _ -             _- _---                      -_-  -_ \  ''')
+		print('''
+				=============================================================
+				The dungreon greets you two paths, the left path seems to have
+				some sort of spikes portruding from the side, while the right 
+				path seems to have cowbwebs and small spiders crawing in and  
+				out of the pathway. What will you do?                                          
+				=============================================================
+					
+					1) Go down the left path.
+					2) Go down the right path.
+					3) Turn back. 
+			
+			''')
+		user_introchoice = str(input("Enter Option Number: "))
+	if user_introchoice == introevent_options[0]:
+		room01()
+	elif user_introchoice == introevent_options[1]:
+		room02()
+	elif user_introchoice == introevent_options[2]:
 		room03()
 def room01():
 	clearscreen()
 	print("\n \n --> You have entered room1")
 def room02():
 	clearscreen()
-	print("\n \n --> You have entered room2")
+	spider_event()
 def room03():
 	clearscreen()
-	print("\n \n --> You have entered room3")
+	print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+	print('''                                                                                              ''')
+	print('''                                  The large stone door behind you is shut, and does not budge.''')
+	print('''                                                                                              ''')
+	print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+	print("\n" * 11)
+	user_enter = str(input("                                                   Press Enter To Continue "))
+	if user_enter == '':
+		clearscreen()
+		start_event()
+	else:
+		clearscreen()
+		start_event()
+
+	def start_event2():
+		event_options = ["1","2","3"]
+		user_choice =""
+		while user_choice not in event_options:
+			clearscreen()
+			print('''      _______________________________________________________________________________________ ''')
+			print('''    /|     -_-                                             _-      _-                       | ''')
+			print('''   / |_-_- _                                         -_- _-   -   _-  _--                   | ''')
+			print('''     |                            _-  _--                                                   | ''')
+			print('''     |                            ,                            _-,  _--                     | ''')
+			print('''     |      .-'````````'.        '(`        .-'```````'-.       '(`      .-'```````'-.      | ''')
+			print('''     |    .` |           `.      `)'      .` |           `.     `)'    .` |           `.    | ''')
+			print('''     |   /   |             \      U      /   |             \     U    /   |             \   | ''')
+			print('''     |  |    |              | o   T   o |    |              |    T   |    |              |  | ''')
+			print('''     |  |    |              |  .  |  .  |    |              |    |   |    |              |  | ''')
+			print('''     |  |    |              |   . | .   |    |              |    |   |    |              |  | ''')
+			print('''     |  |    |              |    .|.    |    |              |    |   |    |              |  | ''')
+			print('''     |  |    |______________|     |     |    |______________|    |   |    |______________|  | ''')
+			print('''     |  |   /  __ ;   -     |     !     |   /     `    _ -  |    !   |   /     --        |  | ''')
+			print('''     |  |  / __            -|        -  |  /  __--      -   |        |  /                |  | ''')
+			print('''     |  | /        __-- _   |   _- _ -  | /        __--_    |   - _  | /        __--_    |  | ''')
+			print('''     |__|/__________________|___________|/__________________|________|/__________________|__| ''')
+			print('''    /                                             _ -                   -_                  | ''')
+			print('''   /   -_- _ -             _- _---                       -_-  -_                   -_       | ''')
+
+
+			print('''
+					=============================================================
+					The dungreon greets you with three doors which will you take?
+					=============================================================
+					
+						1) The first door.
+						2) The second door.
+						3) The third door. 
+			
+				''')
+			user_choice = str(input("Enter Option Number: "))
+			#print("You have selected " + user_choice)
+		if user_choice == event_options[0]:
+			room01()
+		elif user_choice == event_options[1]:
+			room02()
+		elif user_choice == event_options[2]:
+			room03()
+	def room01():
+		clearscreen()
+		print("\n \n --> You have entered room1")
+	def room02():
+		clearscreen()
+		print("\n \n --> You have entered room2")
+	def room03():
+		clearscreen()
+		print("\n \n --> You have entered room3")
 
 
 
@@ -152,12 +420,12 @@ def displayTitlescreen():
 		attributeStart()
 	else:
 		clearscreen()
-		user_enter = str(input(" Just press the Enter key, dont type anything dumbass."))
+		user_enter = str(input(" Hey idiot,Just press the Enter key, dont type anything."))
 		if user_enter == '':
 			attributeStart()
 		else:
 			clearscreen()
-			user_enter = str(input("Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder "))
+			user_enter = str(input("Listen buddy, it really isnt that complicated. Do not type ANYTHING, just hit the ENTER key on your keyboard."))
 			if user_enter == '':
 				attributeStart()
 			else:
