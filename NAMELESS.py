@@ -3,19 +3,111 @@
 #Text Based Adventure
 import random
 import time
+import os
 Gold = 0
 Health = 100
 Mana = 100
+Checkpoint = 0
 # ***ATTRIBUTES***
 maxPoints = 5
 Strength = 5
 Accuracy = 5
 Agility = 5
 Intelligence = 5
+Inventory = [5,5,5] 
+
+def save():
+	file = open("GameSave.txt","w")
+	file.write(str(maxPoints)+ " " + str(Strength) + " " +  str(Accuracy) + " " +  str(Agility) + " " +  str(Intelligence) + " " +  str(Gold) + " " +  str(Health) + " " +  str(Mana) + " " + str(Checkpoint))
+	print("Game Saved")
+	file.close
+	
+def load():    
+    global gold
+    global Health
+    global Mana
+    global Checkpoint
+    global maxPoints
+    global Strength
+    global Accuracy
+    global Agility
+    global Intelligence
+      
+    if(os.path.exists('./GameSave.txt')):
+        file = open("GameSave.txt", 'r')
+        LoadState = file.readline()
+        Stats = LoadState.split(" ")
+	
+        maxPoints = int(Stats[0])
+        Strength = int(Stats[1])
+        Accuracy = int(Stats[2])
+        Agility = int(Stats[3])
+        Intelligence = int(Stats[4])
+        Gold = int(Stats[5])
+        Health = int(Stats[6])
+        Mana = int(Stats[7])
+        Checkpoint = int(Stats[8])
+        print("Yup")
+        print(str(maxPoints)+ " " + str(Strength) + " " + str(Accuracy) + " " + str(Checkpoint))
+    else:
+        maxPoints = 5
+        Strength = 5
+        Accuracy = 5
+        Agility = 5
+        Intelligence = 5
+        Gold = 0
+        Health = 100
+        Mana = 100
+        Checkpoint = 0
+        print("Nope")
 
 def clearscreen():
 	print("\n" * 100)
 	user_choice =""
+	
+def checkInventory(combat):
+    global Inventory
+    global Health
+    global Mana
+    print("You have:")
+    print("1) Health potions: " + str(Inventory[0]))
+    print("2) Mana potions: "+str(Inventory[1]))
+    print("3) Throwing knives: "+str(Inventory[2]))
+    user_enterstat = str(input("                                         Enter Single Number [1-3]:   "))
+    if user_enterstat == '1':
+        if(Inventory[0]>0):
+            Inventory[0]-=1
+            if(Health+20>=100):
+                Health = 100
+            else:
+                Health += 20
+            print("You take a health potion and it resotred 20 Health")
+            return 0
+        else:
+            print("You do not have enough of this item")
+            return 0
+    if user_enterstat == '2':
+        if(Inventory[1]>0):
+            Inventory[1]-=1
+            if(Mana+20>=100):
+                Mana = 100
+            else:
+                Mana += 20
+            print("You take a Mana potion and it resotred 20 Mana")
+            return 0
+        else:
+            print("You do not have enough of this item")
+            return 0
+    if user_enterstat == '3':
+        if(combat == True):
+            if(Inventory[2]>0):
+                Inventory[2]-=1
+                print("You used a thowing knife at the enemy deling 10 damage")
+                return 10
+            else:
+                print("You do not have enough of this item")
+        else:
+            print("You can not use this item becasue you are not in combat")
 
 def introScreen():
 	print('''            ___  ______  ______  ______  ______  ______  ______  ______  ______  ______  ______  ______  ______  ''')
@@ -145,6 +237,8 @@ def attributeStart():
 						attributeStart()
 
 def web_event():
+	global Checkpoint 
+	Checkpoint = 3
 	event_options = ["1","2","3"]
 	user_choice =""
 	while user_choice not in event_options:
@@ -192,6 +286,7 @@ def webroom01():
 		print('''                                 grid, allowing you to  walk right through.                    ''')
 		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
 		print("\n" * 11)
+		save()
 		user_enter = str(input("                                                   Press Enter To Continue "))
 		if user_enter == '':
 			clearscreen()
@@ -251,6 +346,8 @@ def webroom03():
 
 
 def spider_event(x):
+	global Checkpoint
+	Checkpoint = 2
 	if(x==1000):
 		enemyHealth = 13
 	else:
@@ -290,7 +387,7 @@ def spider_event(x):
 	if user_choice == event_options[0]:
 		spiderroom01(enemyHealth)
 	elif user_choice == event_options[1]:
-		spiderroom02()
+		spiderroom02(enemyHealth)
 	elif user_choice == event_options[2]:
 		spiderroom03(enemyHealth)
 def spiderroom01(enemyHealth):
@@ -299,6 +396,7 @@ def spiderroom01(enemyHealth):
 	global Health
 	global Accuracy
 	global Gold
+	global Checkpoint
 	attackAttempt = random.randint(3, 10)
 	if attackAttempt + Accuracy < 13:
 		clearscreen()
@@ -343,6 +441,7 @@ def spiderroom01(enemyHealth):
 				print('''                                                                                              ''')
 				print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
 				print("\n" * 11)
+				save()
 				user_enter = str(input("                                                   Press Enter To Continue "))
 				if user_enter == '':
 					web_event()				
@@ -360,16 +459,24 @@ def spiderroom01(enemyHealth):
 			print('''                                                                                              ''')
 			print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
 			print("\n" * 11)
+			save()
 			user_enter = str(input("                                                   Press Enter To Continue "))
 			if user_enter == '':
 				web_event()	
 
-def spiderroom02():
+def spiderroom02(enemyHealth):
 	clearscreen()
-	print("\n \n --> You have entered room2")
+	damageItem = checkInventory(True)
+	if damageItem == 0:
+		spider_event(enemyHealth)
+	else:
+		enemyHealth -= damageItem
+		spider_event(enemyHealth)
+            
 def spiderroom03(enemyHealth):
 	global Health
 	global Agility
+	global Checkpoint
 	clearscreen()
 	runAttempt = random.randint(1, 8)
 	if runAttempt + Agility < 13:
@@ -399,15 +506,19 @@ def spiderroom03(enemyHealth):
 		print('''                                                                                              ''')
 		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
 		print("\n" * 11)
+		save()
 		user_enter = str(input("                                              Press Enter To Continue "))
 		if user_enter == '':
 			clearscreen()
 			spider_event(enemyHealth)
 		else:
 			clearscreen()
-			spider_event(enemyHealth)
+			web_event()	
 
 def start_event():
+	global Checkpoint
+	Checkpoint = 1
+	save()
 	introevent_options = ["1","2","3"]
 	user_introchoice =""
 	while user_introchoice not in introevent_options:
@@ -526,11 +637,21 @@ def room03():
 		print("\n \n --> You have entered room3")
 
 
-
+def loadPoint(Progress):
+    if(Progress == 1):
+        start_event()
+    elif(Progress == 2):
+        spider_event(1000)
+    elif(Progress == 3):
+        web_event()
+    else:
+        attributeStart()
 
 
 def displayTitlescreen():
+	global Checkpoint
 	start = False
+	load()
 	print("                                                                                      .---. ")
 	print("                                                                                     /  .  |")
 	print("                                                                                    |\_/|  |")
@@ -562,27 +683,34 @@ def displayTitlescreen():
 	print("          \     /                                                                           ")
 	user_enter = str(input("           `---'                              (Press Enter To Continue) "))
 	if user_enter == '':
-		attributeStart()
+            loadPoint(Checkpoint)
+	elif user_enter == "delSave":
+		if os.path.exists("GameSave.txt"):
+  			os.remove("GameSave.txt")
+  			displayTitlescreen()
+		else:
+  			print("There is no existing save")
+  			displayTitlescreen()
 	else:
 		clearscreen()
 		user_enter = str(input(" Hey idiot,Just press the Enter key, dont type anything."))
 		if user_enter == '':
-			attributeStart()
+			loadPoint(Checkpoint)
 		else:
 			clearscreen()
 			user_enter = str(input("Listen buddy, it really isnt that complicated. Do not type ANYTHING, just hit the ENTER key on your keyboard."))
 			if user_enter == '':
-				attributeStart()
+				loadPoint(Checkpoint)
 			else:
 				while start == False:
 					clearscreen()	
 					user_enter = str(input('''I'm sorry, can you not read? Cause if thats the case I dont think you should be playing a TEXT BASED ADVENTURE buddy.       Press ENTER to continue, do not type ANYTHING OTHER THAN ((((ENTER))))) '''))
 					if user_enter == '':
 						start=True
-						attributeStart()
+						loadPoint(Checkpoint)
 						 		
-			
-				
-
+						
 
 displayTitlescreen()
+
+
