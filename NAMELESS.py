@@ -83,6 +83,8 @@ def attributeStart():
 		user_entercon = str(input(""))
 		if user_entercon == '':
 			enterName()
+		else:
+			enterName()
 
 	print('''                                              ==============================                 ''')
 	print('''                                               ASSIGN YOUR ATTRIBUTE POINTS                  ''')
@@ -142,6 +144,112 @@ def attributeStart():
 						clearscreen()
 						attributeStart()
 
+def web_event():
+	event_options = ["1","2","3"]
+	user_choice =""
+	while user_choice not in event_options:
+		clearscreen()
+		print('''                                                         \    \_______/    /       ''')
+		print('''                                                          `.,-'\_____/`-.,         ''')
+		print('''                                                           /`..'\ _ /`.,'\         ''')
+		print('''                                                          /  /`.,' `.,'\  \        ''')
+		print('''                                                         /__/__/     \__\__\__     ''')
+		print('''                                                         \  \  \     /  /  /___    ''')
+		print('''                                                         /\  \,'`._,'`./  /\       ''')
+		print('''                                                          /\,'`./___\,'`./\_\      ''')
+		print('''                                                         /,'`-./__|__\,-'`.        ''')
+		print('''                                                         / _  / __|__ \     \      ''')
+		print('''                                                             /____|____\           ''')
+
+		print('''
+				=============================================================
+				As you're brushing away small cobwebs you're halted by a  
+				enormous spider web, the web seems thick and strong, however
+				there does seem to be a gap you could fit though, but its high
+			    up the web. What do you do?
+				=============================================================
+					
+					1) Attempt to cut through the spider web.
+					2) Observe surroundings for a solution.
+					3) Try to jump through the gap.
+			
+			''')
+		user_choice = str(input("Enter Option Number: "))
+	if user_choice == event_options[0]:
+		webroom01()
+	elif user_choice == event_options[1]:
+		webroom02()
+	elif user_choice == event_options[2]:
+		webroom03()
+
+def webroom01():
+	global Strength
+	clearscreen()
+	if Strength >= 7:
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                                   Your sword cleaves through the web, tearing a hole though it's")
+		print('''                                 grid, allowing you to  walk right through.                    ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			clearscreen()
+		else:
+			clearscreen()
+	else:
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                                   Within your first swing, you quickly realise your attempts will")
+		print('''                                 do nothing to the huge web.                                   ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			web_event()
+		else:
+			web_event()
+
+
+
+
+def webroom03():
+	global Agility
+	clearscreen()
+	if Agility >= 7:
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                                   You leap into the after a good running start and slip right    ")
+		print('''                                 through the hole in the web!                                 ''')
+		print('''                                                                                              ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			clearscreen()
+		else:
+			clearscreen()
+	else:
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print('''                                                                                              ''')
+		print("                                   As you make your leap up, you realise mid air that there is no ")
+		print('''                                 way you're making that jump. You collide with the web but    ''')
+		print('''                                 manage to free yourself from its grasp.                      ''')
+		print('''                                                                                              ''')
+		print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+		print("\n" * 11)
+		user_enter = str(input("                                                   Press Enter To Continue "))
+		if user_enter == '':
+			web_event()
+		else:
+			web_event()
+
+
+
+
+
+
+
 def spider_event(x):
 	if(x==1000):
 		enemyHealth = 13
@@ -174,7 +282,7 @@ def spider_event(x):
 				=============================================================
 					
 					1) Attack the Giant Spider!
-					2) Yeet.
+					2) Use Item.
 					3) Try to run past.
 			
 			''')
@@ -190,6 +298,7 @@ def spiderroom01(enemyHealth):
 	global Strength
 	global Health
 	global Accuracy
+	global Gold
 	attackAttempt = random.randint(3, 10)
 	if attackAttempt + Accuracy < 13:
 		clearscreen()
@@ -223,11 +332,38 @@ def spiderroom01(enemyHealth):
 		print("\n" * 11)
 		user_enter = str(input("                                                   Press Enter To Continue "))
 		if user_enter == '':
-			clearscreen()
-			spider_event(enemyHealth)
+			if enemyHealth <= 0:
+				clearscreen()
+				addGold = random.randint(45, 85)
+				Gold = Gold+ addGold
+				print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+				print('''                                                                                              ''')
+				print("                                      Your attack is succesful and you defeat the Giant Spider! ")
+				print("                                                          You found %s gold coins!              " % addGold)
+				print('''                                                                                              ''')
+				print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+				print("\n" * 11)
+				user_enter = str(input("                                                   Press Enter To Continue "))
+				if user_enter == '':
+					web_event()				
+			else:
+				clearscreen()
+				spider_event(enemyHealth)
 		else:
 			clearscreen()
-			spider_event(enemyHealth)
+			addGold = random.randint(45, 85)
+			Gold = Gold+ addGold
+			print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+			print('''                                                                                              ''')
+			print("                                      Your attack is succesful and you defeat the Giant Spider! ")
+			print("                                                          You found %s gold coins!              " % addGold)
+			print('''                                                                                              ''')
+			print('''                                  <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>''')
+			print("\n" * 11)
+			user_enter = str(input("                                                   Press Enter To Continue "))
+			if user_enter == '':
+				web_event()	
+
 def spiderroom02():
 	clearscreen()
 	print("\n \n --> You have entered room2")
@@ -395,30 +531,36 @@ def room03():
 
 def displayTitlescreen():
 	start = False
-	print("                                   ______ _   _ _   _ _____  _____ _____ _   _       ")
-	print("                                   |  _  \ | | | \ | |  __ \|  ___|  _  | \ | |      ")
-	print("                                   | | | | | | |  \| | |  \/| |__ | | | |  \| |      ")
-	print("                                   | | | | | | | . ` | | __ |  __|| | | | . ` |      ")
-	print("                                   | |/ /| |_| | |\  | |_\ \| |___\ \_/ / |\  |      ")
-	print("                                   |___/  \___/\_| \_/\____/\____/ \___/\_| \_/      ")
-	print("                                                                                     ")
-	print("                                                                                     ")
-	print("                                          ___________   _____ _   _  _____           ")
-	print("                                         |  _  |  ___| |_   _| | | ||  ___|          ")
-	print("                                         | | | | |_      | | | |_| || |__            ")
-	print("                                         | | | |  _|     | | |  _  ||  __|           ")
-	print("                                         \ \_/ / |       | | | | | || |___           ")
-	print("                                          \___/\_|       \_/ \_| |_/\____/           ")
-	print("                                                                                     ")
-	print("                                                                                     ")
-	print("                                _   _   ___  ___  ___ _____ _      _____ _____ _____ ")
-	print("                               | \ | | / _ \ |  \/  ||  ___| |    |  ___/  ___/  ___|")
-	print("                               |  \| |/ /_\ \| .  . || |__ | |    | |__ \ `--.\ `--. ")
-	print("                               | . ` ||  _  || |\/| ||  __|| |    |  __| `--. |`--. |")
-	print("                               | |\  || | | || |  | || |___| |____| |___/\__/ /\__/ /")
-	print("                               \_| \_/\_| |_/\_|  |_/\____/\_____/\____/\____/\____/ ")
-	print("                                                                                     ")
-	user_enter = str(input("                                              Press Enter To Continue "))
+	print("                                                                                      .---. ")
+	print("                                                                                     /  .  |")
+	print("                                                                                    |\_/|  |")
+	print("                                                                                    |   | /|")
+	print("           .------------------  ---------------------------------------------------------' |")
+	print("          /  .-.              \/      ______ _   _ _   _ _____  _____ _____ _   _          |")
+	print("         |  /   \                    |  _  \ | | | \ | |  __ \|  ___|  _  | \ | |          |")
+	print("         | |\_.  |                   | | | | | | |  \| | |  \/| |__ | | | |  \| |          |")
+	print("         |\|  | /|                   | | | | | | | . ` | | __ |  __|| | | | . ` |          |")
+	print("         | `---' |                   | |/ /| |_| | |\  | |_\ \| |___\ \_/ / |\  |          |")
+	print("         |       |                   |___/  \___/\_| \_/\____/\____/ \___/\_| \_/          |")
+	print("         |       |                                                                         |")
+	print("         |       |                          ___________   _____ _   _  _____               |")
+	print("         |       |                         |  _  |  ___| |_   _| | | ||  ___|              |")
+	print("         |       |                         | | | | |_      | | | |_| || |__                |")
+	print("         |       |                         | | | |  _|     | | |  _  ||  __|               |")
+	print("         |       |                         \ \_/ / |       | | | | | || |___               |")
+	print("         |       |                          \___/\_|       \_/ \_| |_/\____/               |")
+	print("         |       |                                                                         |")
+	print("         |       |                                                                         |")
+	print("         |       |                _   _   ___  ___  ___ _____ _      _____ _____ _____     |")
+	print("         |       |               | \ | | / _ \ |  \/  ||  ___| |    |  ___/  ___/  ___|    |")
+	print("         |       |               |  \| |/ /_\ \| .  . || |__ | |    | |__ \ `--.\ `--.     |")
+	print("         |       |               | . ` ||  _  || |\/| ||  __|| |    |  __| `--. |`--. |    |")
+	print("         |       |               | |\  || | | || |  | || |___| |____| |___/\__/ /\__/ /    |")
+	print("         |       |               \_| \_/\_| |_/\_|  |_/\____/\_____/\____/\____/\____/     |")
+	print("         |       |                                                               /\         / ")
+	print("         |       |---------------------------------------------------------------  ------'  ")
+	print("          \     /                                                                           ")
+	user_enter = str(input("           `---'                              (Press Enter To Continue) "))
 	if user_enter == '':
 		attributeStart()
 	else:
@@ -444,4 +586,3 @@ def displayTitlescreen():
 
 
 displayTitlescreen()
-
