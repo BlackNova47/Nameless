@@ -33,7 +33,7 @@ def load():
     global Agility
     global Intelligence
       
-    if(os.path.exists('./GameSave.txt')):
+    try:
         file = open("GameSave.txt", 'r')
         LoadState = file.readline()
         Stats = LoadState.split(" ")
@@ -49,7 +49,7 @@ def load():
         Checkpoint = int(Stats[8])
         print("Yup")
         print(str(maxPoints)+ " " + str(Strength) + " " + str(Accuracy) + " " + str(Checkpoint))
-    else:
+    except:
         maxPoints = 5
         Strength = 5
         Accuracy = 5
@@ -712,5 +712,6 @@ def displayTitlescreen():
 						
 
 displayTitlescreen()
+
 
 
